@@ -5,18 +5,22 @@ function SearchBar() {
     const [search, setSearch] = useState('');
     const [movies, setMovies] = useState([]);
     useEffect(() => {
+        const timeout = setTimeout(() => {
         async function onsearch() {
+
             let response = await fetch(`https://www.omdbapi.com/?apikey=7a06fa1d&s=${search}`);
             const Data = await response.json();
             return setMovies(Data.Search || []);
         }
         onsearch();
+    }, 500);
+    return () => clearTimeout(timeout); 
     }, [search]);
 
     return (
        <>
             <div>
-                <h1>movie exlore</h1>
+                <h1>movie explore</h1>
                 <input id='searchbar' type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}

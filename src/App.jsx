@@ -1,16 +1,31 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 import SearchBar from './component/SearchBar'
 import Favmovie from './component/favmovie'
+import Login from './component/Login'
+import Signup from './component/Signup'
+import Layout from './Layout'
+import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+
 
 function App() {
   
-
+  const router=createBrowserRouter([
+    {
+      path:'/',element:<Layout/>,
+      children:[
+      {path:'', element:<SearchBar/>},
+      {path:'/favmovie',element:<Favmovie/>},
+      {path:'/login',element:<Login/>},
+      {path:'/Signup',element:<Signup/>},
+      ],
+    },
+  ])
+  
   return (
     <>
-       <SearchBar/>  
+      <RouterProvider router={router}/>  
        
     </>
   )
