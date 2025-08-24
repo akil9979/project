@@ -7,7 +7,8 @@ import Login from './component/Login'
 import Signup from './component/Signup'
 import Layout from './Layout'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-
+import { store } from './redux/store'
+import { Provider } from 'react-redux'
 
 function App() {
   
@@ -24,10 +25,10 @@ function App() {
   ])
   
   return (
-    <>
+    <Provider store={store}>
       <RouterProvider router={router}/>  
        
-    </>
+    </Provider>
   )
 }
 
