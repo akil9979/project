@@ -1,7 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+const loadFromLocalStorage = () => {
+  try {
+    const stored = localStorage.getItem("favmovie");
+    return stored ? JSON.parse(stored) : [];
+  } catch (e) {
+    console.error("Could not load from localStorage", e);
+    return [];
+  }
+};
 const initialState = {
-    favmovie: [],
+  favmovie: loadFromLocalStorage(),
 }
 const movieSlice = createSlice({
     name:"moviesReducer",
@@ -9,12 +17,14 @@ const movieSlice = createSlice({
     reducers:{
          addToFav:(state,action)=> {
            state.favmovie.push(action.payload);
+           localStorage.setItem("favmovie", JSON.stringify(state.favmovie));
         },
          removeFromFav:(state,action)=> {
          
            state.favmovie = state.favmovie.filter(
-            (movie) => movie.imdbID !== action.payload.imdbID
+            (movie) => movie.id !== action.payload.id
           );
+          localStorage.setItem("favmovie", JSON.stringify(state.favmovie));
         },
     }
 })

@@ -5,17 +5,17 @@ function SearchBar() {
     const [search, setSearch] = useState('');
     const [movies, setMovies] = useState([]);
     useEffect(() => {
-        const timeout = setTimeout(() => {
+      
         async function onsearch() {
 
-            let response = await fetch(`https://www.omdbapi.com/?apikey=7a06fa1d&s=${search}`);
+            let response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=dc692c28568cc530917eaf3efb43ed41&query=${search}`);
             const Data = await response.json();
             
-            return setMovies(Data.Search ||[]);
+            return setMovies(Data.results||[]);
         }
         onsearch();
-    }, 500);
-    return () => clearTimeout(timeout); 
+    
+    
     }, [search]);
   
     return (
@@ -35,7 +35,7 @@ function SearchBar() {
             <h2 className=' p-3 text-center font-bold text-white text-3xl'>MOVIES</h2>
                 <div className='flex flex-wrap px-15'>
                     {movies.map((movie) => (
-                        <MovieCard key={movie.imdbID}  movies={movie} />
+                        <MovieCard key={movie.id}  movies={movie} />
                     ))}
                 </div>
 
